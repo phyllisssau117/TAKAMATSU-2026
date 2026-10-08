@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Takamatsu Oct 2026</title>
+  
+  <!-- Noto Serif SC 藝術字體 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* CSS CSS 變數 - 五種莫蘭迪色系定義 */
+    :root {
+      /* 預設為 Dusty Rose 乾玫瑰粉 */
+      --primary-color: #C0828A;
+      --primary-light: #F9ECEE;
+      --primary-dark: #8E545C;
+      --accent-shadow: rgba(192, 130, 138, 0.4);
+      --bg-color: #FAFA98;
+      --bg-main: #FAF8F6;
+      --card-bg: #FFFFFF;
+      --text-main: #2C2C2C;
+      --text-muted: #7A7A7A;
+      --border-color: #EAE6E1;
+      --font-family: 'Noto Serif SC', serif;
+    }
+
+    /* 色系切換主題類別 */
+    body.theme-dusty-rose {
+      --primary-color: #C0828A;
+      --primary-light: #FDF4F5;
+      --primary-dark: #8E545C;
+      --accent-shadow: rgba(192, 130, 138, 0.35);
+    }
+
+    body.theme-sage-green {
+      --primary-color: #8A9A86;
+      --primary-light: #F2F5F1;
+      --primary-dark: #5C6B59;
+      --accent-shadow: rgba(138, 154, 134, 0.35);
+    }
+
+    body.theme-fog-blue {
+      --primary-color: #889FB5;
+      --primary-light: #F0F4F8;
+      --primary-dark: #566D83;
+      --accent-shadow: rgba(136, 159, 181, 0.35);
+    }
+
+    body.theme-warm-taupe {
+      --primary-color: #A69383;
+      --primary-light: #F7F5F2;
+      --primary-dark: #736253;
+      --accent-shadow: rgba(166, 147, 131, 0.35);
+    }
+
+    body.theme-charcoal-gray {
+      --primary-color: #63686E;
+      --primary-light: #F0F1F2;
+      --primary-dark: #3A3E42;
+      --accent-shadow: rgba(99, 104, 110, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-size: 16px;
+      line-height: 1.6;
+      padding-bottom: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      padding: 20px 16px;
+      background-color: var(--bg-main);
+      position: relative;
+    }
+
+    /* 頂部 Header */
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-top: 8px;
+    }
+
+    .app-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    /* 色系選擇小圓圈 */
+    .theme-palette {
+      display: flex;
+      gap: 8px;
+    }
+
+    .theme-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #FFF;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+
+    .theme-dot:active, .theme-dot.active {
+      transform: scale(1.25);
+    }
+
+    .dot-dusty-rose { background-color: #C0828A; }
+    .dot-sage-green { background-color: #8A9A86; }
+    .dot-fog-blue { background-color: #889FB5; }
+    .dot-warm-taupe { background-color: #A69383; }
+    .dot-charcoal-gray { background-color: #63686E; }
+
+    /* 主選單 Tab Navigation */
+    .nav-tabs {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 6px 8px;
+      border-radius: 12px;
+      transition: all 0.25s ease;
+    }
+
+    .nav-item.active {
+      color: var(--primary-dark);
+      background-color: var(--primary-light);
+    }
+
+    .nav-item svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* 頁面分頁 */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* 公用元件：卡片樣式 */
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+    }
+
+    .card-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: 50%;
+    }
+
+    .btn-icon:hover {
+      color: var(--primary-color);
+      background-color: var(--primary-light);
+    }
+
+    /* 1. 匯率即時試算 */
+    .exchange-input-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .input-box {
+      background-color: var(--primary-light);
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .input-box:focus-within {
+      border-color: var(--primary-color);
+    }
+
+    .input-box label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      min-width: 60px;
+    }
+
+    .input-box input {
+      border: none;
+      background: transparent;
+      text-align: right;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      width: 100%;
+      outline: none;
+    }
+
+    .exchange-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .tax-free-badge {
+      font-weight: 600;
+      color: var(--primary-dark);
+      background-color: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* 2. 一週天氣預報 */
+    .weather-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .weather-scroll::-webkit-scrollbar { display: none; }
+
+    .weather-item {
+      flex: 0 0 auto;
+      width: 68px;
+      background-color: var(--primary-light);
+      border-radius: 16px;
+      padding: 12px 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .weather-day { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+    .weather-icon { font-size: 22px; margin: 2px 0; }
+    .weather-temp { font-size: 13px; font-weight: 700; color: var(--text-main); }
+
+    /* 3. 入境/自駕模式 切換 */
+    .mode-switch-btns {
+      display: flex;
+      background-color: var(--primary-light);
+      padding: 4px;
+      border-radius: 30px;
+      margin-bottom: 16px;
+    }
+
+    .mode-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 8px 12px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .mode-btn.active {
+      background-color: var(--card-bg);
+      color: var(--primary-dark);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .upload-box {
+      border: 2px dashed var(--border-color);
+      border-radius: 16px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 14px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      background-color: var(--primary-light);
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .upload-box img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .btn-action-full {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background-color: var(--primary-color);
+      color: #FFF;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px var(--accent-shadow);
+      text-decoration: none;
+    }
+
+    /* 駕駛速記 */
+    .drive-notes {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .tiles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tile-card {
+      background-color: var(--primary-light);
+      padding: 12px;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .tile-sub { font-size: 12px; color: var(--text-muted); }
+    .tile-main { font-size: 18px; font-weight: 700; color: var(--primary-dark); margin-top: 2px; }
+
+    .rules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .rule-tag {
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-right: 6px;
+    }
+
+    /* 4. 航班資訊 */
+    .flight-btns {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .flight-tab-btn {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .flight-tab-btn.active {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      border-color: var(--primary-color);
+    }
+
+    .flight-display {
+      background-color: var(--primary-light);
+      border-radius: 16px;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .flight-airports {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .airport-code {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .flight-line-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 16px;
+      position: relative;
+    }
+
+    .flight-time-duration { font-size: 12px; color: var(--text-muted); margin-bottom: 2px; }
+
+    .flight-line {
+      width: 100%;
+      height: 2px;
+      background-color: var(--primary-color);
+      position: relative;
+    }
+
+    .flight-line::after {
+      content: '✈';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: var(--primary-color);
+    }
+
+    .flight-number { font-size: 13px; font-weight: 600; color: var(--primary-dark); margin-top: 4px; }
+    .flight-times {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* 行程頁面 - Timeline Tabs */
+    .timeline-tabs {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      scrollbar-width: none;
+    }
+    .timeline-tabs::-webkit-scrollbar { display: none; }
+
+    .day-tab {
+      flex: 0 0 auto;
+      padding: 8px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 20px;
+      transition: all 0.2s;
+    }
+
+    .day-tab.active {
+      background-color: var(--primary-color);
+      color: #FFF;
+      box-shadow: 4px 4px 0px var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* 管理與操作列 */
+    .schedule-control-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .weather-capsule {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background-color: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .btn-sort-manage {
+      background-color: #FFF;
+      border: 1px solid var(--primary-color);
+      color: var(--primary-dark);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 行程卡片 */
+    .item-card-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .sort-arrows {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sort-mode-active .sort-arrows {
+      display: flex;
+    }
+
+    .arrow-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background-color: #FFF;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .schedule-card {
+      flex: 1;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 18px;
+      border: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    .card-header-tags {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .category-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    .schedule-time {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .schedule-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .schedule-location {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .mapcode-badge {
+      display: inline-block;
+      font-size: 12px;
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-family: monospace;
+    }
+
+    .alert-box {
+      background-color: #FFF6F6;
+      border-left: 3px solid #E57373;
+      padding: 8px 12px;
+      border-radius: 4px 12px 12px 4px;
+      font-size: 13px;
+      color: #D32F2F;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .note-box {
+      font-size: 13px;
+      color: var(--text-main);
+      background-color: var(--bg-main);
+      padding: 10px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    /* 亮顯標籤 */
+    .highlight-food { color: #E65100; font-weight: 700; }
+    .highlight-menu { color: #2E7D32; font-weight: 700; }
+    .highlight-gift { color: #C2185B; font-weight: 700; }
+    .highlight-booking { color: #1565C0; font-weight: 700; }
+
+    .nav-map-btn {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--primary-color);
+      background-color: #FFF;
+      color: var(--primary-dark);
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    /* 右下角 Floating Add Button */
+    .fab-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: #FFF;
+      border: none;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px var(--accent-shadow);
+      cursor: pointer;
+      z-index: 90;
+    }
+
+    /* Modal 彈出視窗 */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal-card {
+      background-color: var(--card-bg);
+      width: 100%;
+      max-width: 420px;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-title { font-size: 18px; font-weight: 700; }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-main);
+      font-size: 15px;
+      outline: none;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .capsule-group {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .capsule-btn {
+      padding: 6px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .capsule-btn.active {
+      background-color: var(--primary-color);
+      color: #FFF;
+      border-color: var(--primary-color);
+    }
+
+    /* 記帳 / 預算表 */
+    .budget-summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .budget-box {
+      background-color: #FFF;
+      border: 1px solid var(--border-color);
+      padding: 16px;
+      border-radius: 16px;
+    }
+
+    .budget-box-label { font-size: 12px; color: var(--text-muted); }
+    .budget-box-val { font-size: 20px; font-weight: 700; color: var(--text-main); margin-top: 4px; }
+
+    .expense-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--card-bg);
+      padding: 14px 16px;
+      border-radius: 16px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .expense-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .expense-cat-tag {
+      border: 1px solid var(--border-color);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .expense-title { font-size: 15px; font-weight: 600; }
+    .expense-amount { font-size: 16px; font-weight: 700; }
+  </style>
+</head>
+<body class="theme-dusty-rose">
+
+  <div class="app-container">
+    
+    <!-- 頂部大標題與莫蘭迪主題切換 -->
+    <header class="app-header">
+      <h1 class="app-title">Takamatsu Oct 2026</h1>
+      <div class="theme-palette">
+        <div class="theme-dot dot-dusty-rose active" onclick="setTheme('dusty-rose', this)" title="Dusty Rose"></div>
+        <div class="theme-dot dot-sage-green" onclick="setTheme('sage-green', this)" title="Sage Green"></div>
+        <div class="theme-dot dot-fog-blue" onclick="setTheme('fog-blue', this)" title="Fog Blue"></div>
+        <div class="theme-dot dot-warm-taupe" onclick="setTheme('warm-taupe', this)" title="Warm Taupe"></div>
+        <div class="theme-dot dot-charcoal-gray" onclick="setTheme('charcoal-gray', this)" title="Charcoal Gray"></div>
+      </div>
+    </header>
+
+    <!-- 主選單分頁欄 (僅放在標題下方) -->
+    <nav class="nav-tabs">
+      <div class="nav-item active" onclick="switchTab('home', this)">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>首頁</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('schedule', this)">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <span>行程</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('hotel', this)">
+        <svg viewBox="0 0 24 24"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+        <span>住宿資訊</span>
+      </div>
+      <div class="nav-item" onclick="switchTab('budget', this)">
+        <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+        <span>記帳預算</span>
+      </div>
+    </nav>
+
+    <!-- ==================== TAB 1: 首頁 ==================== -->
+    <main id="tab-home" class="tab-content active">
+      
+      <!-- 匯率即時試算 -->
+      <section class="card">
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.89 11.1c-1.78-.59-2.64-.96-2.64-1.9 0-.66.54-1.12 1.62-1.12 1.13 0 2.22.42 2.98.83l.7-1.99c-.83-.46-1.97-.83-3.05-.88V4h-2.1v2.05c-2.16.41-3.66 1.74-3.66 3.56 0 2.37 1.94 3.19 4.16 3.93 2.16.73 2.67 1.33 2.67 2.25 0 .97-.87 1.58-2.13 1.58-1.58 0-2.84-.69-3.62-1.22l-.76 2.02c1.01.67 2.38 1.14 3.68 1.25V20h2.1v-2.02c2.25-.33 3.82-1.6 3.82-3.67 0-2.63-2.04-3.53-4.48-4.21z"/></svg>
+            匯率即時試算
+          </h2>
+          <button class="btn-icon" onclick="resetExchange()" title="重新整理">↻</button>
+        </div>
+        <div class="exchange-input-container">
+          <div class="input-box">
+            <label>JPY ¥</label>
+            <input type="number" id="input-jpy" placeholder="0" oninput="calcExchange('jpy')">
+          </div>
+          <div class="input-box">
+            <label>HKD $</label>
+            <input type="number" id="input-hkd" placeholder="0" oninput="calcExchange('hkd')">
+          </div>
+        </div>
+        <div class="exchange-footer">
+          <span>基準匯率：1 JPY = 0.0515 HKD</span>
+          <span id="tax-free-info" class="tax-free-badge">差 ¥5,500 免稅</span>
+        </div>
+      </section>
+
+      <!-- 一週天氣預報 -->
+      <section class="card">
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+            一週天氣預報 (高松)
+          </h2>
+        </div>
+        <div class="weather-scroll">
+          <div class="weather-item"><span class="weather-day">10/13</span><span class="weather-icon">☀️</span><span class="weather-temp">22°C</span></div>
+          <div class="weather-item"><span class="weather-day">10/14</span><span class="weather-icon">⛅</span><span class="weather-temp">20°C</span></div>
+          <div class="weather-item"><span class="weather-day">10/15</span><span class="weather-icon">☁️</span><span class="weather-temp">19°C</span></div>
+          <div class="weather-item"><span class="weather-day">10/16</span><span class="weather-icon">🌧️</span><span class="weather-temp">18°C</span></div>
+          <div class="weather-item"><span class="weather-day">10/17</span><span class="weather-icon">☀️</span><span class="weather-temp">21°C</span></div>
+          <div class="weather-item"><span class="weather-day">10/18</span><span class="weather-icon">☀️</span><span class="weather-temp">22°C</span></div>
+          <div class="weather-item"><span class="weather-day">10/19</span><span class="weather-icon">⛅</span><span class="weather-temp">20°C</span></div>
+        </div>
+      </section>
+
+      <!-- 入境 / 自駕模式 -->
+      <section class="card">
+        <div class="mode-switch-btns">
+          <button class="mode-btn active" id="btn-mode-entry" onclick="switchMode('entry')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 19h19v2h-19a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h19v2h-19v14zm10-13l8 5-8 5V6z"/></svg>
+            入境模式
+          </button>
+          <button class="mode-btn" id="btn-mode-drive" onclick="switchMode('drive')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.04 3H5.81l1.04-3zM19 17H5v-4h14v4z"/></svg>
+            自駕模式
+          </button>
+        </div>
+
+        <!-- 入境模式內容 -->
+        <div id="content-mode-entry">
+          <div class="card-title-row">
+            <h3 class="card-title">Visit Japan Web</h3>
+            <button class="btn-icon" onclick="clearImage('vjw-img')" title="刪除截圖">🗑️</button>
+          </div>
+          <div class="upload-box" onclick="triggerUpload('vjw-file')">
+            <input type="file" id="vjw-file" accept="image/*" style="display:none;" onchange="handleUpload(event, 'vjw-img')">
+            <div id="vjw-img-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-4-5z"/></svg>
+              <div style="margin-top: 6px;">點擊上載截圖</div>
+            </div>
+            <img id="vjw-img" style="display:none;" />
+          </div>
+          <a href="https://www.vjw.digital.go.jp/" target="_blank" class="btn-action-full">開啟 VJW 官網</a>
+        </div>
+
+        <!-- 自駕模式內容 -->
+        <div id="content-mode-drive" style="display: none;">
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+              停車位置
+            </h3>
+            <div>
+              <button class="btn-icon" onclick="clearDriveData()" title="重設">↻</button>
+            </div>
+          </div>
+          <input type="text" id="park-location-input" class="form-input" placeholder="輸入樓層/格號（例如：B2-H33）" style="margin-bottom:12px;">
+          <div class="upload-box" onclick="triggerUpload('park-file')">
+            <input type="file" id="park-file" accept="image/*" style="display:none;" onchange="handleUpload(event, 'park-img')">
+            <div id="park-img-placeholder">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+              <div style="margin-top: 6px;">點擊上載照片</div>
+            </div>
+            <img id="park-img" style="display:none;" />
+          </div>
+
+          <div class="drive-notes">
+            <h3 class="card-title" style="margin-bottom:12px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"/></svg>
+              駕駛速記
+            </h3>
+            <div class="tiles-grid">
+              <div class="tile-card">
+                <div class="tile-sub">口訣</div>
+                <div class="tile-main">靠左行駛</div>
+              </div>
+              <div class="tile-card">
+                <div class="tile-sub">轉彎</div>
+                <div class="tile-main">右大左小</div>
+              </div>
+            </div>
+            <div class="rules-list">
+              <div><span class="rule-tag">STOP</span> 看到 止まれ (Tomare) 標誌務必完全停止 3 秒。</div>
+              <div><span class="rule-tag">WAIT</span> 紅燈時禁止左轉 (除非有綠色箭頭)。</div>
+              <div><span class="rule-tag">WALK</span> 斑馬線有行人必須停車禮讓。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 航班資訊 -->
+      <section class="card">
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            航班資訊
+          </h2>
+        </div>
+        <div class="flight-btns">
+          <button class="flight-tab-btn active" onclick="switchFlight(0, this)">去程 10/13</button>
+          <button class="flight-tab-btn" onclick="switchFlight(1, this)">轉機 10/14</button>
+          <button class="flight-tab-btn" onclick="switchFlight(2, this)">回程 10/20</button>
+        </div>
+        <div class="flight-display">
+          <div class="flight-airports">
+            <span id="flight-dep-code" class="airport-code">HKG</span>
+            <div class="flight-line-container">
+              <span id="flight-duration" class="flight-time-duration">約 4 小時 20 分</span>
+              <div class="flight-line"></div>
+              <span id="flight-no" class="flight-number">UO628</span>
+            </div>
+            <span id="flight-arr-code" class="airport-code">HND</span>
+          </div>
+          <div class="flight-times">
+            <span id="flight-dep-time">20:00</span>
+            <span id="flight-arr-time">01:20 (+1)</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==================== TAB 2: 行程 ==================== -->
+    <main id="tab-schedule" class="tab-content">
+      
+      <!-- Timeline Tabs -->
+      <div class="timeline-tabs" id="day-tabs-container">
+        <div class="day-tab active" onclick="selectDay(1, this)">DAY 1</div>
+        <div class="day-tab" onclick="selectDay(2, this)">DAY 2</div>
+        <div class="day-tab" onclick="selectDay(3, this)">DAY 3</div>
+        <div class="day-tab" onclick="selectDay(4, this)">DAY 4</div>
+        <div class="day-tab" onclick="selectDay(5, this)">DAY 5</div>
+        <div class="day-tab" onclick="selectDay(6, this)">DAY 6</div>
+        <div class="day-tab" onclick="selectDay(7, this)">DAY 7</div>
+      </div>
+
+      <!-- 天氣資訊與管理操作列 -->
+      <div class="schedule-control-bar">
+        <div class="weather-capsule">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15 13V5c0-1.66-1.34-3-3-3S9 3.34 9 5v8c-1.21.91-2 2.37-2 4 0 2.76 2.24 5 5 5s5-2.24 5-5c0-1.63-.79-3.09-2-4zm-3-8c.55 0 1 .45 1 1v3h-2V6c0-.55.45-1 1-1z"/></svg>
+          <span>高松 22°C ☀️</span>
+        </div>
+        <button class="btn-sort-manage" onclick="toggleSortMode()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 2 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 22l4.59-5.59L15.17 15 12 18.17z"/></svg>
+          排序與管理
+        </button>
+      </div>
+
+      <!-- 動態行程卡片列表 -->
+      <div id="schedule-cards-list"></div>
+
+    </main>
+
+    <!-- ==================== TAB 3: 住宿資訊 ==================== -->
+    <main id="tab-hotel" class="tab-content">
+      <div id="hotel-cards-list"></div>
+    </main>
+
+    <!-- ==================== TAB 4: 記帳預算 ==================== -->
+    <main id="tab-budget" class="tab-content">
+      
+      <!-- 總覽面板 -->
+      <section class="card">
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9z"/></svg>
+            預算開銷總覽
+          </h2>
+        </div>
+        <div class="budget-summary-grid">
+          <div class="budget-box">
+            <div class="budget-box-label">總計花費 (JPY)</div>
+            <div id="total-jpy" class="budget-box-val">¥0</div>
+          </div>
+          <div class="budget-box">
+            <div class="budget-box-label">折合港幣 (HKD)</div>
+            <div id="total-hkd" class="budget-box-val">$0.0</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 新增開銷項目 -->
+      <section class="card">
+        <h2 class="card-title" style="margin-bottom: 16px;">新增開銷項目</h2>
+        <div class="form-group">
+          <input type="text" id="expense-name" class="form-input" placeholder="項目名稱 (如: 伴手禮、神戶牛午餐)">
+        </div>
+        <div class="form-row form-group">
+          <select id="expense-category" class="form-select" style="flex:1;">
+            <option value="美食">🍱 美食</option>
+            <option value="景點">⛩️ 景點</option>
+            <option value="交通">🚗 交通</option>
+            <option value="住宿">🏨 住宿</option>
+            <option value="活動">🎟️ 活動</option>
+          </select>
+          <input type="number" id="expense-amount" class="form-input" placeholder="金額 (JPY ¥)" style="flex:1;">
+        </div>
+        <button class="btn-action-full" onclick="addExpense()">記錄一筆開銷</button>
+      </section>
+
+      <!-- 流水帳清單 -->
+      <div id="expense-list"></div>
+    </main>
+
+    <!-- Floating Action Button (新增行程 / 住宿) -->
+    <button id="fab-add" class="fab-btn" onclick="handleFabClick()" style="display: none;">+</button>
+
+    <!-- 行程編輯 Modal -->
+    <div id="modal-schedule" class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 class="modal-title">編輯行程</h3>
+          <button class="btn-icon" onclick="closeModal('modal-schedule')">✕</button>
+        </div>
+        <div class="form-group">
+          <label class="form-label">卡片分類</label>
+          <div class="capsule-group" id="edit-schedule-category">
+            <button class="capsule-btn active" onclick="setCapsuleActive(this)">⛩️ 景點</button>
+            <button class="capsule-btn" onclick="setCapsuleActive(this)">🍱 美食</button>
+            <button class="capsule-btn" onclick="setCapsuleActive(this)">🚗 交通</button>
+            <button class="capsule-btn" onclick="setCapsuleActive(this)">🏨 住宿</button>
+            <button class="capsule-btn" onclick="setCapsuleActive(this)">🎟️ 活動</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">標題</label>
+          <input type="text" id="modal-sched-title" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">地點 / Google Map 關鍵字</label>
+          <input type="text" id="modal-sched-location" class="form-input">
+        </div>
+        <div class="form-row form-group">
+          <div style="flex: 1;">
+            <label class="form-label">開始時間</label>
+            <input type="time" id="modal-sched-start" class="form-input">
+          </div>
+          <div style="flex: 1;">
+            <label class="form-label">結束時間</label>
+            <input type="time" id="modal-sched-end" class="form-input">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">MAPCODE</label>
+          <input type="text" id="modal-sched-mapcode" class="form-input" placeholder="例如：228 877 247*20">
+        </div>
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label class="form-label" style="margin: 0;">重要提醒 / 攻略</label>
+            <button class="btn-icon" style="font-size: 12px; color: var(--primary-color);" onclick="addModalAlert()">+ 新增提醒</button>
+          </div>
+          <input type="text" id="modal-sched-alert" class="form-input" placeholder="警示或提醒事項">
+        </div>
+        <div class="form-group">
+          <label class="form-label">備註</label>
+          <textarea id="modal-sched-note" class="form-textarea" rows="3"></textarea>
+        </div>
+        <button class="btn-action-full" onclick="saveScheduleModal()">儲存變更</button>
+      </div>
+    </div>
+
+    <!-- 住宿編輯 Modal -->
+    <div id="modal-hotel" class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 class="modal-title">編輯住宿</h3>
+          <button class="btn-icon" onclick="closeModal('modal-hotel')">✕</button>
+        </div>
+        <div class="form-group">
+          <label class="form-label">分類</label>
+          <div class="capsule-group" id="edit-hotel-category">
+            <button class="capsule-btn active" onclick="setCapsuleActive(this)">🏨 Hotel</button>
+            <button class="capsule-btn" onclick="setCapsuleActive(this)">🏡 Airbnb</button>
+            <button class="capsule-btn" onclick="setCapsuleActive(this)">♨️ 溫泉</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">住宿名稱</label>
+          <input type="text" id="modal-hotel-name" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">日期</label>
+          <input type="text" id="modal-hotel-date" class="form-input" placeholder="Day X (10/XX)">
+        </div>
+        <div class="form-row form-group">
+          <div style="flex:1;">
+            <label class="form-label">入住 Check-in</label>
+            <input type="time" id="modal-hotel-checkin" class="form-input">
+          </div>
+          <div style="flex:1;">
+            <label class="form-label">退房 Check-out</label>
+            <input type="time" id="modal-hotel-checkout" class="form-input">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirmation No.</label>
+          <input type="text" id="modal-hotel-confirm" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">MAPCODE / 電話</label>
+          <input type="text" id="modal-hotel-mapcode" class="form-input" placeholder="Mapcode 或 電話">
+        </div>
+        <div class="form-group">
+          <label class="form-label">房型</label>
+          <input type="text" id="modal-hotel-room" class="form-input" placeholder="例如：雙人房/含早餐/高樓層禁菸">
+        </div>
+        <div class="form-group">
+          <label class="form-label">備註</label>
+          <textarea id="modal-hotel-note" class="form-textarea" rows="3"></textarea>
+        </div>
+        <button class="btn-action-full" onclick="saveHotelModal()">儲存變更</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // 預設匯率
+    const EXCHANGE_RATE = 0.0515;
+
+    // 航班資料
+    const flights = [
+      { depCode: 'HKG', arrCode: 'HND', duration: '約 4 小時 20 分', flightNo: 'UO628', depTime: '20:00', arrTime: '01:20 (+1)' },
+      { depCode: 'HND', arrCode: 'TAK', duration: '約 1 小時 25 分', flightNo: 'JAL477', depTime: '09:45', arrTime: '11:10' },
+      { depCode: 'KIX', arrCode: 'HKG', duration: '約 4 小時 10 分', flightNo: 'UO689', depTime: '20:40', arrTime: '23:50' }
+    ];
+
+    // 初始化行程資料 (Word Document 行程數據解析化)
+    let rawScheduleData = {
+      1: [
+        { id: 101, category: '🚗 交通', title: '取車與出發', location: '高松機場', start: '09:45', end: '11:10', mapcode: '', alert: '', note: 'JL477抵達高松後辦理取車手續' },
+        { id: 102, category: '⛩️ 景點', title: '呆呆獸公園 (ヤドン公園)', location: '香川県綾歌郡綾川町萱原253-7', start: '13:00', end: '13:30', mapcode: '228 877 247*20', alert: '', note: '又稱小羽毛池跡公園' },
+        { id: 103, category: '⛩️ 景點', title: '金刀比羅宮', location: '香川県仲多度郡琴平町892-1', start: '14:00', end: '15:30', mapcode: '77 353 864*26', alert: '階梯較多，建議穿著舒適運動鞋', note: '參拜金毘羅神社' },
+        { id: 104, category: '⛩️ 景點', title: '四國水族館', location: '香川県綾歌郡宇多津町浜一番丁4番地', start: '16:30', end: '18:00', mapcode: '77 832 128*42', alert: '', note: '<span class="highlight-booking">大人門票 2,600日圓</span>' },
+        { id: 105, category: '🏨 住宿', title: 'Fav Hotel Check-in', location: '香川県高松市塩上町２丁目４−２0', start: '19:00', end: '19:30', mapcode: '60 607 301*65', alert: '', note: '' }
+      ],
+      2: [
+        { id: 201, category: '🚗 交通', title: '高松港渡輪至小豆島', location: '高松のりば', start: '08:02', end: '09:02', mapcode: '60 666 095*58', alert: '', note: '高松 -> 土庄 (小豆島)' },
+        { id: 202, category: '⛩️ 景點', title: '中山千枚田', location: '香川県小豆郡小豆島町中山', start: '09:30', end: '10:15', mapcode: '364 884 883*85', alert: '', note: '擁抱小豆島梯田景致' },
+        { id: 203, category: '⛩️ 景點', title: '天使的散步道', location: '香川県小豆郡土庄町甲24-92', start: '10:45', end: '11:30', mapcode: '364 787 899*84', alert: '乾潮最佳時段：05:12 - 11:12', note: '' },
+        { id: 204, category: '🍱 美食', title: '小豆島拉麵 Hishio', location: '香川県小豆郡土庄町甲24-18', start: '11:45', end: '12:45', mapcode: '', alert: '', note: '<span class="highlight-food">必吃醬油拉麵</span>' },
+        { id: 205, category: '⛩️ 景點', title: '橄欖公園 (道の駅)', location: '香川県小豆郡小豆島町西村甲1941-1', start: '13:30', end: '15:00', mapcode: '364 798 305*82', alert: '', note: '<span class="highlight-gift">必買橄欖油周邊商品</span>' }
+      ],
+      3: [
+        { id: 301, category: '🍱 美食', title: 'Minori Gelato', location: '香川県小豆郡小豆島町草壁本町1055-2', start: '12:00', end: '12:05', mapcode: '364 831 124*37', alert: '', note: '<span class="highlight-menu">必點橄欖油義式冰淇淋</span>' },
+        { id: 302, category: '⛩️ 景點', title: '豐島美術館', location: '香川県小豆郡土庄町豊島唐櫃1771', start: '14:00', end: '16:00', mapcode: '871 251 334*74', alert: '', note: '<span class="highlight-booking">線上預約 1,800円</span>' }
+      ],
+      4: [
+        { id: 401, category: '⛩️ 景點', title: '地中美術館', location: '香川県香川郡直島町3449−1', start: '10:00', end: '11:00', mapcode: '19 118 560*02', alert: '周一閉館', note: '<span class="highlight-booking">線上門票 2,700円</span>' },
+        { id: 402, category: '🍱 美食', title: 'カフェサロン中奥', location: '香川縣香川郡直島町本村中奧1167', start: '13:45', end: '14:30', mapcode: '871 120 512*22', alert: '', note: '<span class="highlight-food">必吃咖哩蛋包飯</span>' }
+      ],
+      5: [ { id: 501, category: '🚗 交通', title: '返還車輛', location: '高松租車營業所', start: '12:30', end: '13:00', mapcode: '', alert: '', note: '加油並辦理還車' } ],
+      6: [ { id: 601, category: '🎟️ 活動', title: 'USJ 日本環球影城', location: '大阪府大阪市此花区桜島２丁目1-33', start: '08:30', end: '20:00', mapcode: '', alert: '', note: '全天暢遊環球影城' } ],
+      7: [ { id: 701, category: '🚗 交通', title: '搭機回港', location: '關西國際機場 (KIX)', start: '20:40', end: '23:50', mapcode: '', alert: '', note: 'UO689 航班返港' } ]
+    };
+
+    // 住宿資料
+    let hotelData = [
+      { id: 1, name: 'Fav Hotel Takamatsu', date: 'Day 1 - Day 2', checkin: '15:00', checkout: '10:00', confirmNo: 'FH-20261013', mapcode: '60 607 301*65', room: '四人房/禁菸', note: '位於高松市鹽上町' },
+      { id: 2, name: 'Yado Storo', date: 'Day 3 (10/15)', checkin: '16:00', checkout: '10:00', confirmNo: 'YS-882910', mapcode: '19 082 173*77', room: '日式包棟 / 不含早餐', note: '鄰近宇野港' }
+    ];
+
+    // 記帳資料
+    let expenseData = [
+      { id: 1, title: '一鶴骨付鳥晚餐', category: '美食', amount: 4800 },
+      { id: 2, title: '栗林公園入園門票+和船', category: '景點', amount: 1220 },
+      { id: 3, title: '高松5日自駕租車全包', category: '交通', amount: 32000 }
+    ];
+
+    let currentDay = 1;
+    let isSortMode = false;
+    let editingScheduleId = null;
+    let editingHotelId = null;
+
+    // 主題變換
+    function setTheme(themeName, element) {
+      document.body.className = `theme-${themeName}`;
+      document.querySelectorAll('.theme-dot').forEach(dot => dot.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    // 分頁切換
+    function switchTab(tabId, element) {
+      document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(ni => ni.classList.remove('active'));
+      
+      document.getElementById(`tab-${tabId}`).classList.add('active');
+      element.classList.add('active');
+
+      const fab = document.getElementById('fab-add');
+      if (tabId === 'schedule' || tabId === 'hotel') {
+        fab.style.display = 'flex';
+      } else {
+        fab.style.display = 'none';
+      }
+    }
+
+    // 匯率計算
+    function calcExchange(source) {
+      const jpyInput = document.getElementById('input-jpy');
+      const hkdInput = document.getElementById('input-hkd');
+      const taxBadge = document.getElementById('tax-free-info');
+
+      if (source === 'jpy') {
+        const jpyVal = parseFloat(jpyInput.value) || 0;
+        hkdInput.value = (jpyVal * EXCHANGE_RATE).toFixed(1);
+        updateTaxBadge(jpyVal);
+      } else {
+        const hkdVal = parseFloat(hkdInput.value) || 0;
+        const jpyVal = Math.round(hkdVal / EXCHANGE_RATE);
+        jpyInput.value = jpyVal;
+        updateTaxBadge(jpyVal);
+      }
+    }
+
+    function updateTaxBadge(jpyVal) {
+      const taxBadge = document.getElementById('tax-free-info');
+      if (jpyVal >= 5500) {
+        taxBadge.innerHTML = '✨已達免稅';
+      } else {
+        const diff = 5500 - jpyVal;
+        taxBadge.innerHTML = `差 ¥${diff} 免稅`;
+      }
+    }
+
+    function resetExchange() {
+      document.getElementById('input-jpy').value = '';
+      document.getElementById('input-hkd').value = '';
+      document.getElementById('tax-free-info').innerHTML = '差 ¥5,500 免稅';
+    }
+
+    // 模式切換
+    function switchMode(mode) {
+      document.getElementById('btn-mode-entry').classList.toggle('active', mode === 'entry');
+      document.getElementById('btn-mode-drive').classList.toggle('active', mode === 'drive');
+      document.getElementById('content-mode-entry').style.display = mode === 'entry' ? 'block' : 'none';
+      document.getElementById('content-mode-drive').style.display = mode === 'drive' ? 'block' : 'none';
+    }
+
+    // 圖片上傳
+    function triggerUpload(fileId) {
+      document.getElementById(fileId).click();
+    }
+
+    function handleUpload(event, imgId) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById(imgId);
+          img.src = e.target.result;
+          img.style.display = 'block';
+          const placeholder = document.getElementById(imgId + '-placeholder');
+          if (placeholder) placeholder.style.display = 'none';
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function clearImage(imgId) {
+      const img = document.getElementById(imgId);
+      img.src = '';
+      img.style.display = 'none';
+      const placeholder = document.getElementById(imgId + '-placeholder');
+      if (placeholder) placeholder.style.display = 'block';
+    }
+
+    function clearDriveData() {
+      document.getElementById('park-location-input').value = '';
+      clearImage('park-img');
+    }
+
+    // 航班切換
+    function switchFlight(index, btn) {
+      document.querySelectorAll('.flight-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const data = flights[index];
+      document.getElementById('flight-dep-code').innerText = data.depCode;
+      document.getElementById('flight-arr-code').innerText = data.arrCode;
+      document.getElementById('flight-duration').innerText = data.duration;
+      document.getElementById('flight-no').innerText = data.flightNo;
+      document.getElementById('flight-dep-time').innerText = data.depTime;
+      document.getElementById('flight-arr-time').innerText = data.arrTime;
+    }
+
+    // 行程 Tab 選擇
+    function selectDay(dayNum, btn) {
+      currentDay = dayNum;
+      document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      renderSchedule();
+    }
+
+    function toggleSortMode() {
+      isSortMode = !isSortMode;
+      renderSchedule();
+    }
+
+    // 渲染行程列表
+    function renderSchedule() {
+      const container = document.getElementById('schedule-cards-list');
+      container.innerHTML = '';
+      const list = rawScheduleData[currentDay] || [];
+
+      if (isSortMode) {
+        container.classList.add('sort-mode-active');
+      } else {
+        container.classList.remove('sort-mode-active');
+      }
+
+      list.forEach((item, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'item-card-wrapper';
+
+        let arrowsHtml = `
+          <div class="sort-arrows">
+            <button class="arrow-btn" onclick="moveSchedule(${index}, -1)">↑</button>
+            <button class="arrow-btn" onclick="moveSchedule(${index}, 1)">↓</button>
+          </div>
+        `;
+
+        let actionIcon = isSortMode 
+          ? `<button class="btn-icon" style="color:#E57373;" onclick="deleteSchedule(${item.id})">🗑️</button>` 
+          : `<button class="btn-icon" onclick="openScheduleModal(${item.id})">✏️</button>`;
+
+        let alertHtml = item.alert ? `<div class="alert-box"><span>⚠️</span> ${item.alert}</div>` : '';
+        let mapcodeHtml = item.mapcode ? `<div class="mapcode-badge">MAP: ${item.mapcode}</div>` : '';
+        let noteHtml = item.note ? `<div class="note-box">${item.note}</div>` : '';
+
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.location || item.title)}`;
+
+        wrapper.innerHTML = `
+          ${arrowsHtml}
+          <div class="schedule-card">
+            <div class="card-header-tags">
+              <span class="category-capsule">${item.category}</span>
+              <span class="schedule-time">${item.start} - ${item.end}</span>
+              ${actionIcon}
+            </div>
+            <div class="schedule-title">${item.title}</div>
+            <div class="schedule-location">📍 ${item.location}</div>
+            ${mapcodeHtml}
+            ${alertHtml}
+            ${noteHtml}
+            <a href="${mapsUrl}" target="_blank" class="nav-map-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              一鍵導航 Google Maps
+            </a>
+          </div>
+        `;
+        container.appendChild(wrapper);
+      });
+    }
+
+    function moveSchedule(index, direction) {
+      const list = rawScheduleData[currentDay];
+      const targetIndex = index + direction;
+      if (targetIndex >= 0 && targetIndex < list.length) {
+        const temp = list[index];
+        list[index] = list[targetIndex];
+        list[targetIndex] = temp;
+        renderSchedule();
+      }
+    }
+
+    function deleteSchedule(id) {
+      rawScheduleData[currentDay] = rawScheduleData[currentDay].filter(i => i.id !== id);
+      renderSchedule();
+    }
+
+    // Modal 編輯行程
+    function openScheduleModal(id) {
+      editingScheduleId = id;
+      const list = rawScheduleData[currentDay] || [];
+      const item = list.find(i => i.id === id) || { title: '', location: '', start: '12:00', end: '13:00', mapcode: '', alert: '', note: '' };
+
+      document.getElementById('modal-sched-title').value = item.title;
+      document.getElementById('modal-sched-location').value = item.location;
+      document.getElementById('modal-sched-start').value = item.start;
+      document.getElementById('modal-sched-end').value = item.end;
+      document.getElementById('modal-sched-mapcode').value = item.mapcode;
+      document.getElementById('modal-sched-alert').value = item.alert;
+      document.getElementById('modal-sched-note').value = item.note.replace(/<[^>]*>/g, '');
+
+      document.getElementById('modal-schedule').classList.add('active');
+    }
+
+    function saveScheduleModal() {
+      const list = rawScheduleData[currentDay] || [];
+      const activeCatBtn = document.querySelector('#edit-schedule-category .capsule-btn.active');
+      const category = activeCatBtn ? activeCatBtn.innerText : '⛩️ 景點';
+
+      const updatedObj = {
+        id: editingScheduleId || Date.now(),
+        category: category,
+        title: document.getElementById('modal-sched-title').value || '新行程',
+        location: document.getElementById('modal-sched-location').value,
+        start: document.getElementById('modal-sched-start').value,
+        end: document.getElementById('modal-sched-end').value,
+        mapcode: document.getElementById('modal-sched-mapcode').value,
+        alert: document.getElementById('modal-sched-alert').value,
+        note: document.getElementById('modal-sched-note').value
+      };
+
+      if (editingScheduleId) {
+        const idx = list.findIndex(i => i.id === editingScheduleId);
+        if (idx !== -1) list[idx] = updatedObj;
+      } else {
+        if (!rawScheduleData[currentDay]) rawScheduleData[currentDay] = [];
+        rawScheduleData[currentDay].push(updatedObj);
+      }
+
+      closeModal('modal-schedule');
+      renderSchedule();
+    }
+
+    // 住宿渲染與 Modal
+    function renderHotel() {
+      const container = document.getElementById('hotel-cards-list');
+      container.innerHTML = '';
+
+      hotelData.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.name)}`;
+
+        card.innerHTML = `
+          <div class="card-title-row">
+            <span class="category-capsule">🏨 Hotel</span>
+            <span style="font-size: 13px; font-weight: 600; color: var(--text-muted);">${item.date}</span>
+            <button class="btn-icon" onclick="openHotelModal(${item.id})">✏️</button>
+          </div>
+          <h2 class="card-title" style="margin-bottom: 8px;">${item.name}</h2>
+          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
+            Check-in: ${item.checkin} | Check-out: ${item.checkout}
+          </div>
+          <div style="font-size: 13px; margin-bottom: 6px;">Confirmation No: <strong>${item.confirmNo}</strong></div>
+          <div class="mapcode-badge">MAP/TEL: ${item.mapcode}</div>
+          <div class="note-box" style="margin-top: 8px;">房型：${item.room}<br>${item.note}</div>
+          <a href="${mapsUrl}" target="_blank" class="nav-map-btn" style="margin-top: 10px;">
+            一鍵導航 Google Maps
+          </a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function openHotelModal(id) {
+      editingHotelId = id;
+      const item = hotelData.find(h => h.id === id) || { name: '', date: '', checkin: '15:00', checkout: '10:00', confirmNo: '', mapcode: '', room: '', note: '' };
+
+      document.getElementById('modal-hotel-name').value = item.name;
+      document.getElementById('modal-hotel-date').value = item.date;
+      document.getElementById('modal-hotel-checkin').value = item.checkin;
+      document.getElementById('modal-hotel-checkout').value = item.checkout;
+      document.getElementById('modal-hotel-confirm').value = item.confirmNo;
+      document.getElementById('modal-hotel-mapcode').value = item.mapcode;
+      document.getElementById('modal-hotel-room').value = item.room;
+      document.getElementById('modal-hotel-note').value = item.note;
+
+      document.getElementById('modal-hotel').classList.add('active');
+    }
+
+    function saveHotelModal() {
+      const activeCatBtn = document.querySelector('#edit-hotel-category .capsule-btn.active');
+      const updatedObj = {
+        id: editingHotelId || Date.now(),
+        name: document.getElementById('modal-hotel-name').value || '新住宿',
+        date: document.getElementById('modal-hotel-date').value,
+        checkin: document.getElementById('modal-hotel-checkin').value,
+        checkout: document.getElementById('modal-hotel-checkout').value,
+        confirmNo: document.getElementById('modal-hotel-confirm').value,
+        mapcode: document.getElementById('modal-hotel-mapcode').value,
+        room: document.getElementById('modal-hotel-room').value,
+        note: document.getElementById('modal-hotel-note').value
+      };
+
+      if (editingHotelId) {
+        const idx = hotelData.findIndex(h => h.id === editingHotelId);
+        if (idx !== -1) hotelData[idx] = updatedObj;
+      } else {
+        hotelData.push(updatedObj);
+      }
+
+      closeModal('modal-hotel');
+      renderHotel();
+    }
+
+    // 記帳 logic
+    function addExpense() {
+      const name = document.getElementById('expense-name').value;
+      const category = document.getElementById('expense-category').value;
+      const amount = parseFloat(document.getElementById('expense-amount').value);
+
+      if (name && !isNaN(amount)) {
+        expenseData.push({ id: Date.now(), title: name, category: category, amount: amount });
+        document.getElementById('expense-name').value = '';
+        document.getElementById('expense-amount').value = '';
+        renderBudget();
+      }
+    }
+
+    function deleteExpense(id) {
+      expenseData = expenseData.filter(e => e.id !== id);
+      renderBudget();
+    }
+
+    function renderBudget() {
+      const listContainer = document.getElementById('expense-list');
+      listContainer.innerHTML = '';
+
+      let totalJpy = 0;
+      expenseData.forEach(item => {
+        totalJpy += item.amount;
+        const div = document.createElement('div');
+        div.className = 'expense-item';
+        div.innerHTML = `
+          <div class="expense-left">
+            <span class="expense-cat-tag">${item.category}</span>
+            <span class="expense-title">${item.title}</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="expense-amount">¥${item.amount.toLocaleString()}</span>
+            <button class="btn-icon" onclick="deleteExpense(${item.id})">🗑️</button>
+          </div>
+        `;
+        listContainer.appendChild(div);
+      });
+
+      document.getElementById('total-jpy').innerText = `¥${totalJpy.toLocaleString()}`;
+      document.getElementById('total-hkd').innerText = `$${(totalJpy * EXCHANGE_RATE).toFixed(1)}`;
+    }
+
+    // 通用 Modal 工具
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    function setCapsuleActive(btn) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.capsule-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function handleFabClick() {
+      const activeTab = document.querySelector('.nav-item.active').innerText.trim();
+      if (activeTab.includes('行程')) {
+        openScheduleModal(null);
+      } else if (activeTab.includes('住宿')) {
+        openHotelModal(null);
+      }
+    }
+
+    // 頁面初始化
+    window.onload = function() {
+      renderSchedule();
+      renderHotel();
+      renderBudget();
+    };
+  </script>
+</body>
+</html>
