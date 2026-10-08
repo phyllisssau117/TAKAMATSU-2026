@@ -1,0 +1,909 @@
+/* =========================================================
+   莫蘭迪日式簡約風設計主題 (Noto Serif SC 襯線藝術字體)
+   ========================================================= */
+
+:root {
+  /* 預設顏色 (Dusty Rose 乾玫瑰粉) */
+  --primary-color: #B5838D;
+  --primary-light: #F4ACB7;
+  --bg-main: #FAF7F5;
+  --card-bg: #FFFFFF;
+  --text-main: #4A4E69;
+  --text-muted: #8D99AE;
+  --border-color: #E2ECE9;
+  --shadow-color: rgba(181, 131, 141, 0.15);
+  --font-serif: 'Noto Serif SC', 'Songti SC', serif;
+}
+
+/* 莫蘭迪五色系主題切換 */
+body.theme-dusty-rose {
+  --primary-color: #B5838D;
+  --primary-light: #FFE5EC;
+  --bg-main: #FAF7F5;
+  --shadow-color: rgba(181, 131, 141, 0.2);
+}
+
+body.theme-sage-green {
+  --primary-color: #8A9A86;
+  --primary-light: #E8F0E6;
+  --bg-main: #F7F9F6;
+  --shadow-color: rgba(138, 154, 134, 0.2);
+}
+
+body.theme-fog-blue {
+  --primary-color: #798E9C;
+  --primary-light: #E3EBF0;
+  --bg-main: #F5F8FA;
+  --shadow-color: rgba(121, 142, 156, 0.2);
+}
+
+body.theme-warm-taupe {
+  --primary-color: #9C8370;
+  --primary-light: #F0EAE1;
+  --bg-main: #FAF8F5;
+  --shadow-color: rgba(156, 131, 112, 0.2);
+}
+
+body.theme-charcoal-gray {
+  --primary-color: #5C626A;
+  --primary-light: #E5E7EB;
+  --bg-main: #F4F5F7;
+  --shadow-color: rgba(92, 98, 106, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-serif);
+  background-color: #ECEAE6;
+  color: var(--text-main);
+  font-size: 16px; /* 15-17px 看得更清楚 */
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+}
+
+/* 手機容器 Layout */
+.app-container {
+  width: 100%;
+  max-width: 430px; /* iPhone 15 Pro Max 寬度 */
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  box-shadow: 0 0 25px rgba(0,0,0,0.08);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 置頂大標題與莫蘭迪主題按鈕 */
+.app-header {
+  padding: 20px 20px 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-main);
+}
+
+.app-title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: 0.5px;
+}
+
+.theme-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.theme-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.theme-dot:active, .theme-dot.active {
+  transform: scale(1.25);
+  border-color: var(--text-main);
+}
+
+.theme-dot.theme-dusty-rose { background-color: #B5838D; }
+.theme-dot.theme-sage-green { background-color: #8A9A86; }
+.theme-dot.theme-fog-blue { background-color: #798E9C; }
+.theme-dot.theme-warm-taupe { background-color: #9C8370; }
+.theme-dot.theme-charcoal-gray { background-color: #5C626A; }
+
+/* 主選單分頁列 (頂部大標題下方) */
+.main-nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  background-color: var(--bg-main);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-tab {
+  border: none;
+  background: none;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 8px 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.nav-tab.active {
+  color: var(--primary-color);
+  background-color: var(--primary-light);
+}
+
+.nav-tab i {
+  width: 18px;
+  height: 18px;
+}
+
+/* 內容主要區域 */
+.app-content {
+  padding: 16px;
+  flex: 1;
+  padding-bottom: 80px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* 卡片通用設定 (留大留白、軟邊框) */
+.card {
+  background-color: var(--card-bg);
+  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 15px var(--shadow-color);
+  margin-bottom: 18px;
+  transition: all 0.3s ease;
+}
+
+.card-padded {
+  padding: 18px;
+}
+
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.card-title-serif {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title-serif i {
+  width: 20px;
+  height: 20px;
+  color: var(--primary-color);
+}
+
+/* 匯率試算 */
+.currency-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-box-group {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-main);
+  border-radius: 14px;
+  padding: 10px 16px;
+}
+
+.currency-label {
+  font-weight: 600;
+  width: 80px;
+  color: var(--text-main);
+}
+
+.input-box-group input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: right;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  outline: none;
+}
+
+.currency-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.tax-free-hint {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.tax-free-hint.reached {
+  background-color: var(--primary-light);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* 按鈕風格 */
+.icon-btn-reset, .icon-btn-delete {
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-family: var(--font-serif);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-btn-reset i, .icon-btn-delete i {
+  width: 15px;
+  height: 15px;
+}
+
+/* 一週天氣 */
+.weather-week-grid {
+  display: flex;
+  justify-content: space-between;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  gap: 10px;
+}
+
+.weather-day-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 48px;
+  background-color: var(--bg-main);
+  padding: 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.w-date { font-weight: 600; color: var(--text-main); }
+.w-icon { font-size: 20px; margin: 4px 0; }
+.w-temp { color: var(--text-muted); font-size: 11px; }
+
+/* 入境 / 自駕模式切換 */
+.sub-mode-toggle {
+  display: flex;
+  background-color: var(--bg-main);
+  border-radius: 14px;
+  padding: 4px;
+  margin-bottom: 16px;
+}
+
+.mode-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 8px;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.mode-btn.active {
+  background-color: var(--card-bg);
+  color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.upload-box-tall {
+  border: 2px dashed var(--border-color);
+  background-color: var(--bg-main);
+  border-radius: 14px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+
+.img-preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  gap: 6px;
+  padding: 10px;
+  width: 100%;
+}
+
+.img-preview-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.upload-icon { width: 28px; height: 28px; }
+
+.btn-primary-action {
+  width: 100%;
+  border: none;
+  background-color: var(--primary-color);
+  color: #FFFFFF;
+  padding: 12px;
+  border-radius: 14px;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+/* 自駕模式 & 駕駛速記 */
+.drive-tips-block {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border-color);
+}
+
+.tiles-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.tile-card {
+  background-color: var(--primary-light);
+  padding: 14px;
+  border-radius: 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.tile-small { font-size: 13px; color: var(--text-muted); margin-bottom: 2px; }
+.tile-large { font-size: 18px; color: var(--primary-color); font-weight: 700; }
+
+.drive-rules-list {
+  list-style: none;
+  font-size: 15px;
+}
+
+.drive-rules-list li {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.highlight-tag {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #FFF;
+}
+
+.text-stop { background-color: #E63946; }
+.text-wait { background-color: #E9C46A; color: #333; }
+.text-walk { background-color: #2A9D8F; }
+
+/* 航班資訊 */
+.flight-sub-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.flight-btn {
+  flex: 1;
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  padding: 8px;
+  border-radius: 10px;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.flight-btn.active {
+  background: var(--primary-color);
+  color: #FFF;
+  border-color: var(--primary-color);
+}
+
+.flight-info-card {
+  background-color: var(--bg-main);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.flight-route-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flight-loc {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.flight-line-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  margin: 0 16px;
+}
+
+.flight-duration { font-size: 12px; color: var(--text-muted); }
+
+.flight-line {
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+  position: relative;
+  margin: 6px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.plane-line-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--primary-color);
+  background: var(--bg-main);
+  padding: 0 2px;
+}
+
+.flight-code { font-size: 12px; font-weight: 600; color: var(--primary-color); }
+
+.flight-time-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ================= 2. 行程卡片 & Timeline ================= */
+.timeline-tabs-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 10px;
+}
+
+.day-tab {
+  border: none;
+  background: transparent;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 6px 12px;
+}
+
+/* 選中的 DAY 立體膠囊按鈕 */
+.day-tab.active {
+  color: var(--primary-color);
+  background-color: var(--primary-light);
+  border-radius: 20px;
+  box-shadow: 3px 3px 0px var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.itinerary-mgmt-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.weather-pill-info {
+  background-color: #EFF3F5;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-main);
+}
+
+.weather-pill-info i { width: 14px; height: 14px; color: var(--primary-color); }
+
+.btn-sort-mgmt {
+  border: 1px solid var(--primary-color);
+  background-color: #FFFFFF;
+  color: var(--primary-color);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 行程卡片單項 */
+.itin-card-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.reorder-btns-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn-arrow-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background-color: #FFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-main);
+}
+
+.itin-card-main {
+  flex: 1;
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.itin-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.itin-time-badge {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.itin-cat-tag {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.itin-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.itin-detail-row {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.itin-mapcode-box {
+  background-color: var(--bg-main);
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: inline-block;
+  font-size: 13px;
+  color: var(--text-main);
+  margin: 6px 0;
+}
+
+.itin-tips-list {
+  margin: 6px 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.itin-tip-item {
+  font-size: 13px;
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  padding: 4px 8px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+.itin-notes {
+  font-size: 13px;
+  color: var(--text-main);
+  background-color: var(--bg-main);
+  padding: 8px;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+.btn-nav-map {
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid var(--primary-color);
+  background-color: transparent;
+  color: var(--primary-color);
+  padding: 8px;
+  border-radius: 10px;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 住宿卡片 */
+.hotel-card {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.hotel-day-badge {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 6px;
+}
+
+/* 記帳頁面 */
+.grid-data-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat-box {
+  background-color: var(--bg-main);
+  padding: 14px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label { font-size: 12px; color: var(--text-muted); }
+.stat-value { font-size: 18px; font-weight: 700; color: var(--text-main); margin-top: 2px; }
+
+.budget-form-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-text-standard, .input-select-standard, .textarea-standard {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: var(--text-main);
+  outline: none;
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select-icon {
+  position: absolute;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.expense-card-item {
+  background-color: var(--card-bg);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.expense-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.expense-cat-pill {
+  border: 1px solid var(--text-muted);
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.expense-name { font-weight: 600; color: var(--text-main); font-size: 15px; }
+.expense-right { display: flex; align-items: center; gap: 10px; }
+.expense-amount { font-weight: 700; font-size: 16px; }
+
+/* 浮動加號按鈕 (FAB) */
+.fab-btn {
+  position: fixed;
+  bottom: 24px;
+  right: calc(50% - 195px + 16px);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: #FFF;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 90;
+}
+
+@media (max-width: 430px) {
+  .fab-btn { right: 20px; }
+}
+
+/* Modal 彈出視窗 */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  padding: 16px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-card {
+  background-color: var(--card-bg);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 390px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.modal-title { font-size: 18px; font-weight: 700; color: var(--text-main); }
+.modal-close-btn { border: none; background: none; color: var(--text-muted); cursor: pointer; }
+
+.capsule-tags-group {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.capsule-tag {
+  border: 1px solid var(--border-color);
+  background: var(--bg-main);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.capsule-tag.active {
+  background-color: var(--text-muted);
+  color: #FFF;
+  border-color: var(--text-muted);
+}
+
+.form-label { font-size: 13px; font-weight: 600; color: var(--text-muted); display: block; }
+.margin-top-xs { margin-top: 6px; }
+.margin-top-sm { margin-top: 12px; }
+.margin-top-md { margin-top: 18px; }
+.margin-bottom-sm { margin-bottom: 10px; }
+.text-right { text-align: right; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.btn-text-action { border: none; background: none; color: var(--primary-color); font-family: var(--font-serif); font-size: 13px; font-weight: 600; cursor: pointer; }
